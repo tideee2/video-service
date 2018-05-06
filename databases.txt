@@ -1,0 +1,26 @@
+--video
+id
+name
+duration
+owner
+
+--invest
+id
+video-id
+user-id
+percent
+
+--views
+id
+id-video
+id-user
+timestop
+likes
+
+--users
+id
+name
+pass
+role //user invest owner
+budget
+
