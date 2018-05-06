@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Video service login</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <link rel="stylesheet" content-type="text/css" href="css/style.css">
+	<meta charset="UTF-8">
+	<title>Video service login</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+	<link rel="stylesheet" content-type="text/css" href="css/style.css">
 </head>
 <body>
-    <div class="login-wrapper">
-        <div class="login-form">
-            <label for="username">login</label>
-            <input id="username" type="text" placeholder="Username">
-            <input id="password" type="password" placeholder="Password">
-            <button onclick="getToken()" class="login-button">Sign in</button>
-            <button onclick="register()" class="login-button">Sign up</button>
-        </div>
-    </div>
-    <script src="js/main.js"></script>
+	<div class="login-wrapper">
+		<div class="login-form">
+			<label for="username">login</label>
+			<input id="username" type="text" placeholder="Username">
+			<input id="password" type="password" placeholder="Password">
+			<i class="far fa-eye"></i>
+			<button onclick="getToken()" class="login-button">Sign in</button>
+			<button onclick="register()" class="login-button">Sign up</button>
+		</div>
+	</div>
+	<script src="js/main.js"></script>
 </body>
 </html>

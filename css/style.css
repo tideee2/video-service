@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Proza+Libre:500');
 
+/* LOGIN FORM */
 .login-wrapper {
 	position: fixed;
 	top: 0;
@@ -10,6 +11,7 @@
 	background: linear-gradient(to right, rgb(12, 235, 235), rgb(32, 227, 178), rgb(41, 255, 198));
 }
 .login-form {
+	position: relative;
 	max-width: 300px;
 	margin: 17% auto;
 }
@@ -37,9 +39,12 @@
 	border-radius: 2px;
 	padding-left: 5px;
 }
+.login-form input:focus {
+	box-shadow: 0px 2px 26px #396afc;
+}
 /* Hides placeholder on focus */
 .login-form input:focus::-webkit-input-placeholder { 
-	color: transparent; 
+	color: transparent;
 }
 .login-form input:focus:-moz-placeholder { 
 	color: transparent; 
@@ -49,6 +54,21 @@
 }
 .login-form input:focus:-ms-input-placeholder { 
 	color: transparent; 
+}
+.login-form i {
+	position: absolute;
+	padding: 10px;
+	opacity: 0.2;
+	color: #000;
+	right: 0%;
+	bottom: 29%;
+	cursor: pointer;
+}
+.login-form i:hover {
+	opacity: 0.5;
+}
+.login-form i:active {
+	opacity: 0.8;
 }
 
 .login-button {
@@ -66,13 +86,13 @@
 	padding: 10px 27px;
 }
 
-/* Hover state animation applied here */
+/* Button hover state animation */
 .login-button:hover { 
   -webkit-animation: hover 1200ms linear 2 alternate;
   animation: hover 1200ms linear 2 alternate;
 }
 
-/* Active state animation applied here */
+/* Button active state animation */
 .login-button:active {
   -webkit-animation: active 1200ms ease 1 alternate;
   animation: active 1200ms ease 1 alternate; 
@@ -90,7 +110,7 @@
   100% {-webkit-transform: scale(.92,.9);transform: scale(.92,.9);}
 }
 
-/* Hover state animation keyframes below */
+/* Button hover state animation keyframes */
 
 @-webkit-keyframes hover { 
   0% { -webkit-transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
@@ -169,3 +189,4 @@
   96% { -webkit-transform: matrix3d(1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); }
   100% { -webkit-transform: matrix3d(1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); transform: matrix3d(1.1, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1); } 
 }
+
