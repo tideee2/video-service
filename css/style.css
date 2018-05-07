@@ -1,15 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Proza+Libre:500');
 
 /* LOGIN FORM */
-.login-wrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: -webkit-gradient(linear, left top, right top, from(rgb(12, 235, 235)), color-stop(rgb(32, 227, 178)), to(rgb(41, 255, 198)));
-    background: linear-gradient(to right, rgb(12, 235, 235), rgb(32, 227, 178), rgb(41, 255, 198));
-}
 .login-form {
     position: relative;
     max-width: 300px;
@@ -196,10 +187,65 @@
 }
 
 /* MAIN PAGE */
-/*.top-container {
+body {
+    background: -webkit-gradient(linear, left top, right top, from(rgb(12, 235, 235)), color-stop(rgb(32, 227, 178)), to(rgb(41, 255, 198)));
+    background: linear-gradient(to right, rgb(12, 235, 235), rgb(32, 227, 178), rgb(41, 255, 198));
+}
+.top-container {
     overflow: hidden;
-    background-color: #333;
+    background-color: #fff;
     position: fixed;
     top: 0;
+    left: 0;
+    height: 56px;
+    padding: 0 16px;
     width: 100%;
-}*/
+    -webkit-box-shadow: 0px -2px 12px #000;
+    box-shadow: 0px -2px 12px #000;
+    z-index: 10;
+}
+.video-container {
+    width: 1000px;
+    margin: 76px auto 0 auto;
+}
+#current_video,
+.video-column {
+    display: inline-block;
+}
+.video-column {
+    margin-left: 30px;
+    vertical-align: top;
+}
+.video-column > span {
+    display: block;
+    font-size: 20px;
+    font-family: 'Proza Libre', sans-serif;
+    text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+    text-align: center;
+    color: #fff;
+}
+.video-column .video {
+    margin-bottom: 10px;
+}
+.video-container button {
+    display: block;
+    width: 100px;
+    height: 30px;
+}
+.video {
+    position: relative;
+    width: 150px;
+    height: 85px;
+    background-color: #000;
+    cursor: pointer;
+}
+.video i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -8px 0 0 -7px;
+    color: #BFBFBF;
+}
+.video:hover i {
+    color: #fff;
+}
