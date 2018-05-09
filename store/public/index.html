@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Echo server</title>
+
+    <script src="socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>Wait</h1>
+<h2></h2>
+<p></p>
+<button id="click">Click!</button>
+<button id="finish">Finish!</button>
+<button id="otherVideo">other video</button>
+<script type="text/javascript">
+    $(function () {
+        var socket = io();
+        socket.emit('send', 1);
+        socket.on('send', function (msg) {
+            $('h1').html(msg);
+        });
+        $('#otherVideo').on("click", function () {
+            console.log(1);
+            socket.emit('video', JSON.stringify({user: 1, video: 2, onTime: 1}));
+        });
+        $('#finish').on("click", function () {
+            console.log(1);
+            socket.emit('video', JSON.stringify({user: 1, video: 1, onTime: 0}));
+        });
+        $('#click').on("click", function () {
+            var counter = 1;
+            socket.emit('video', JSON.stringify({user: 1, video: 1, onTime: 1}));
+           /* socket.emit('send', counter);*/
+        });
+    });
+</script>
+</body>
+</html>
