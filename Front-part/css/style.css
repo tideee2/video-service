@@ -2,65 +2,65 @@
 
 /* LOGIN FORM */
 .login-form {
-    position: relative;
-    max-width: 300px;
-    margin: 17% auto;
+  position: relative;
+  max-width: 300px;
+  margin: 17% auto;
 }
 .login-form label {
-    display: block;
-    font-family: 'Proza Libre', sans-serif;
-    font-size: 30px;
-    text-align: center;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-    color: #fff;
-    opacity: 0.9;
+  display: block;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+  color: #fff;
+  opacity: 0.9;
 }
 .login-form input {
-    display: block;
-    font-family: 'Proza Libre', sans-serif;
-    font-size: 15px;
-    opacity: 0.3;
-    width: 295px;
-    height: 40px;
-    margin-bottom: 10px;
-    border: 0;
-    outline: 0;
-    border-radius: 2px;
-    padding-left: 5px;
+  display: block;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 15px;
+  opacity: 0.3;
+  width: 295px;
+  height: 40px;
+  margin-bottom: 10px;
+  border: 0;
+  outline: 0;
+  border-radius: 2px;
+  padding-left: 5px;
 }
 .login-form input:focus {
-    -webkit-box-shadow: 0px 2px 26px #396afc;
-    box-shadow: 0px 2px 26px #396afc;
+  -webkit-box-shadow: 0px 2px 26px #396afc;
+  box-shadow: 0px 2px 26px #396afc;
 }
 /* Hides placeholder on focus */
 .login-form input:focus::-webkit-input-placeholder { 
-    color: transparent;
+  color: transparent;
 }
 .login-form input:focus:-moz-placeholder { 
-    color: transparent; 
+  color: transparent; 
 }
 .login-form input:focus::-moz-placeholder { 
-    color: transparent; 
+  color: transparent; 
 }
 .login-form input:focus:-ms-input-placeholder { 
-    color: transparent; 
+  color: transparent; 
 }
 .login-form i {
-    position: absolute;
-    padding: 10px;
-    opacity: 0.2;
-    color: #000;
-    right: 0%;
-    bottom: 29%;
-    cursor: pointer;
+  position: absolute;
+  padding: 10px;
+  opacity: 0.2;
+  color: #000;
+  right: 0%;
+  bottom: 29%;
+  cursor: pointer;
 }
 .login-form i:hover {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 .login-form i:active {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .login-button {
@@ -74,12 +74,12 @@
   font-size: 17px;
 }
 .login-button + .login-button {
-    background: #2B9DF5;
-    margin-left: 21%;
-    padding: 10px 27px;
+  background: #2B9DF5;
+  margin-left: 21%;
+  padding: 10px 27px;
 }
 .login-button + .login-button:active {
-    background: #5F9BE0;
+  background: #5F9BE0;
 }
 
 /* Button hover state animation */
@@ -188,64 +188,79 @@
 
 /* MAIN PAGE */
 body {
-    background: -webkit-gradient(linear, left top, right top, from(rgb(12, 235, 235)), color-stop(rgb(32, 227, 178)), to(rgb(41, 255, 198)));
-    background: linear-gradient(to right, rgb(12, 235, 235), rgb(32, 227, 178), rgb(41, 255, 198));
+  background: -webkit-gradient(linear, left top, right top, from(rgb(12, 235, 235)), color-stop(rgb(32, 227, 178)), to(rgb(41, 255, 198)));
+  background: linear-gradient(to right, rgb(12, 235, 235), rgb(32, 227, 178), rgb(41, 255, 198));
 }
 .top-container {
-    overflow: hidden;
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 56px;
-    padding: 0 16px;
-    width: 100%;
-    -webkit-box-shadow: 0px -2px 12px #000;
-    box-shadow: 0px -2px 12px #000;
-    z-index: 10;
+  overflow: hidden;
+  background-color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 56px;
+  padding: 0 16px;
+  width: 100%;
+  -webkit-box-shadow: 0px -2px 12px #000;
+  box-shadow: 0px -2px 12px #000;
+  z-index: 10;
 }
+.logo a {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  text-decoration: none;
+  font-family: 'Proza Libre', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+  color: #282828;
+
+}
+
 .video-container {
-    width: 1000px;
-    margin: 76px auto 0 auto;
+  width: 1000px;
+  margin: 76px auto 0 auto;
 }
 #current_video,
-.video-column {
-    display: inline-block;
+.video-column,
+.top-container span {
+  display: inline-block;
 }
 .video-column {
-    margin-left: 30px;
-    vertical-align: top;
+  margin-left: 30px;
+  vertical-align: top;
 }
 .video-column > span {
-    display: block;
-    font-size: 20px;
-    font-family: 'Proza Libre', sans-serif;
-    text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
-    text-align: center;
-    color: #fff;
+  display: block;
+  font-size: 20px;
+  font-family: 'Proza Libre', sans-serif;
+  text-shadow: 3px 3px 3px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #fff;
 }
 .video-column .video {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 .video-container button {
-    display: block;
-    width: 100px;
-    height: 30px;
+  display: block;
+  width: 100px;
+  height: 30px;
 }
 .video {
-    position: relative;
-    width: 150px;
-    height: 85px;
-    background-color: #000;
-    cursor: pointer;
+  position: relative;
+  width: 150px;
+  height: 85px;
+  background-color: #000;
+  cursor: pointer;
 }
 .video i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -8px 0 0 -7px;
-    color: #BFBFBF;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -8px 0 0 -7px;
+  color: #BFBFBF;
 }
 .video:hover i {
-    color: #fff;
+  color: #fff;
 }
+
