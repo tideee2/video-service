@@ -23,45 +23,41 @@ app.get('/', function(req, res, next) {
 /*In this method catching json request type {user: X, video: X, onTime 1(0)}.
 If user with this socket absent in buffer add in buffer and assigns time=10
  else watching onTime = 0 or user changing video, in both cases send changes in database
- If onTime = 1 add 10 to user time   */
+ If watching = true add 10 to user time   */
 io.on('connection',  function(socket){
     console.log('connected');
     socket.on('video', function (msg) {
         var msg = JSON.parse(msg);
-        var ms = msg.onTime;
-        console.log(' ' + ms);
         if (socket.id in buffer) {
-
-            if (msg.onTime == 0 || buffer[socket.id].video != msg.video ) {
+            if (msg.watching == false || buffer[socket.id].video != msg.videoId ) {
               if(buffer[socket.id].time !=0) {
-                  var sql = "INSERT INTO video (user, video, time) VALUES('" + buffer[socket.id].user + "', '" + buffer[socket.id].video + "', '" + buffer[socket.id].time + "' )";
-                  console.log(sql);
+                  var sql = "INSERT INTO views (user_id, video_id, time_watch) VALUES('" + buffer[socket.id].user + "', '" + buffer[socket.id].video + "', '" + buffer[socket.id].time + "' )";
+                  //console.log(sql);
                   connection.query(sql, function (err, result) {
                       if (err) throw err;
-                      console.log(result);
                   });
                   buffer[socket.id].time = 0;
               }
             }
-            if (msg.onTime) {
-                if(buffer[socket.id].video != msg.video){//if user change video
-                    buffer[socket.id].video = msg.video
+            if (msg.watching == true) {
+                if(buffer[socket.id].video != msg.videoId){//if user change video
+                    buffer[socket.id].video = msg.videoId;
                     buffer[socket.id].time = 0;
+
                 }
                 buffer[socket.id].time += 10;
-                console.log(buffer[socket.id].time);
             }
         } else {//creating new user in buffer
             buffer[socket.id] = {};
-            buffer[socket.id].user = msg.user;
-            buffer[socket.id].video = msg.video;
+            buffer[socket.id].user = msg.userId;
+            buffer[socket.id].video = msg.videoId;
             buffer[socket.id].time = 10;
         }
     });
     socket.on('disconnect', function() {
 
         if(socket.id in buffer && buffer[socket.id].time != 0) {//if user disconnect add data on database
-            var sql = "INSERT INTO video (user, video, time) VALUES('" + buffer[socket.id].user + "', '" + buffer[socket.id].video + "', '" + buffer[socket.id].time + "' )";
+            var sql = "INSERT INTO views (user_id, video_id, time_watch) VALUES('" + buffer[socket.id].user + "', '" + buffer[socket.id].video + "', '" + buffer[socket.id].time + "' )";
             connection.query(sql, function (err, result) {
                 if (err) throw err;
             });

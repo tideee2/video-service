@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
-const connection = mysql.createConnection({
+var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'todo'
+    database: 'video-servise'
 });
 
 connection.connect(function (err) {
