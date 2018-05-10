@@ -11,14 +11,11 @@ var io = socketio(server);
 const connection = require('./DB/connection.js');//connect to database
 const hendlerConnection = require('./DB/hendlerConnection.js');//handler disconnect of database
 
-var indexRouter = require('./routes/index');
-
 var buffer = {};// storage of all users online in type {user: }
 
 
 app.get('/', function(req, res, next) {
     res.sendFile(path.join( __dirname + '/public/index.html'))
-    //res.render('index', { title: 'Express' });
 });
 /*In this method catching json request type {user: X, video: X, onTime 1(0)}.
 If user with this socket absent in buffer add in buffer and assigns time=10
@@ -67,9 +64,6 @@ io.on('connection',  function(socket){
     });
 });
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -77,7 +71,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
