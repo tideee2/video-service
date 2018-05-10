@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <button id="tovideo">
+        send money
+    </button>
+    <button id="changebudget">
+        set budget all users to 100
+    </button>
+    <button id="set_views">
+        set views
+    </button>
+    <button id="reset">
+        reset data
+    </button>
+    <div id="data"></div>
+    <script>
+        $(document).ready(()=>{
+            $('#tovideo').click(()=>{
+                console.log('q');
+                $.ajax({
+                    type: "post",
+                    url: "/moneyToVideo",
+                    success: function(data){ 
+                        console.log(data);
+                        },
+                    error: function(data){
+                        console.log(data);
+                    }
+                    });
+            });
+            $('#changebudget').click(()=>{
+                console.log('q');
+                $.ajax({
+                    type: "post",
+                    url: "/changeAllBudget",
+                    success: function(data){ 
+                        console.log(data);
+                        },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+            $('#set_views').click(()=>{
+                console.log('q');
+                $.ajax({
+                    type: "post",
+                    url: "/setViews",
+                    success: function(data){ 
+                        console.log(data);
+                        },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+            $('#reset').click(()=>{
+                console.log('q');
+                $.ajax({
+                    type: "post",
+                    url: "/reset",
+                    success: function(data){ 
+                        console.log(data);
+                        },
+                    error: function(data){
+                        console.log(data);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
