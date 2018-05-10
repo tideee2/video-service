@@ -1,5 +1,7 @@
 $(document).ready(function () {
-    //var socket = io();
+    $(function () {
+        var socket = io();
+    });
 
     /* Fills the localeStorage in order to test the program without connected databases and so on. */
     var user = {
@@ -36,6 +38,7 @@ $(document).ready(function () {
     localStorage.setItem('currentVideoObj', JSON.stringify(videos[0]));
 
     /* Player */
+    let buffering = false;
     let counter = 0;
     let currentPlayer = new Clappr.Player({source: videos[0].source}).attachTo(document.getElementById('current_video'));
     addPlayerListeners(currentPlayer);
@@ -58,7 +61,7 @@ $(document).ready(function () {
                 + JSON.parse(localStorage.getItem('currentVideoObj')).id);
 
             let watchCounter = function () {
-                if (player.isPlaying()) {
+                if (player.isPlaying() && !buffering) {
                     counter++;
                     if (counter % 10 == 0) {
                         console.log(counter + ' seconds');
@@ -69,10 +72,18 @@ $(document).ready(function () {
             setTimeout(watchCounter, 1000);
         });
 
+        player.listenTo(player, Clappr.Events.PLAYER_PLAY, function () {
+            buffering = false;
+        });
+
         player.listenToOnce(player, Clappr.Events.PLAYER_ENDED, function () {
             console.log('Player finished!');
         });
 
+        player.listenTo(player.core.getCurrentContainer(), Clappr.Events.CONTAINER_STATE_BUFFERING, function () {
+            buffering = true;
+            console.log(buffering);
+        });
     };
 
 });
