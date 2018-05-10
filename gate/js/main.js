@@ -1,16 +1,31 @@
 $(document).ready(function () {
-    $(function () {
-        var socket = io();
-    });
+    /* Connection to the store service */
+    var socket = io();
 
-    /* Fills the localeStorage in order to test the program without connected databases and so on. */
-    var user = {
-        id: 1,
-        name: 'Vasya',
-        pass: 111,
-        role: 'user',
-        budget: 10
-    }
+    /* Fills the localeStorage in order to make tests without connected databases and so on. */
+    var users = [
+        {
+            id: 1,
+            name: 'Vasya',
+            pass: 111,
+            role: 'user',
+            budget: 10
+        },
+        {
+            id: 2,
+            name: 'Petya',
+            pass: 111,
+            role: 'owner',
+            budget: 30
+        },
+        {
+            id: 3,
+            name: 'Dima',
+            pass: 111,
+            role: 'investor',
+            budget: 30
+        }
+    ];
     var videos = [
         {
             id: 1,
@@ -34,37 +49,53 @@ $(document).ready(function () {
             owner_id: 1
         }
     ];
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('currentVideoObj', JSON.stringify(videos[0]));
+    localStorage.setItem('user', JSON.stringify(users[0]));
 
     /* Player */
     let buffering = false;
-    let counter = 0;
+    let seconds = 0;
     let currentPlayer = new Clappr.Player({source: videos[0].source}).attachTo(document.getElementById('current_video'));
+    localStorage.setItem('currentVideoObj', JSON.stringify(videos[0]));
     addPlayerListeners(currentPlayer);
 
-    //socket.emit('video', {});
-    /* Changes the source of the player to the next */
+    /* Changes the source (video) of the player to the next */
     $('.video').click(function () {
-        counter = 0;
+        seconds = 0;
         let nextVideo = $(this).attr('id') == 1 ? videos[1] : videos[2];
+        socket.emit('video', JSON.stringify({
+            userId: JSON.parse(localStorage.getItem('user')).id,
+            videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
+            watching: false
+        }));
         localStorage.setItem('currentVideoObj', JSON.stringify(nextVideo));
         currentPlayer.load({source: nextVideo.source});
         addPlayerListeners(currentPlayer);
     });
 
+    $('.buttons button').click(function () {
+        let userButton = $(this).attr("id");
+        let nextUserId = userButton.substring(userButton.length - 1) - 1;
+        localStorage.setItem('user', JSON.stringify(users[nextUserId]));
+    });
+
     /* Adds all required event listeners to the player */
     function addPlayerListeners(player) {
         player.listenToOnce(player, Clappr.Events.PLAYER_PLAY, function () {
-            console.log('Starts playing!');
-            console.log('user id: ' + JSON.parse(localStorage.getItem('user')).id + ';' + ' video id: '
-                + JSON.parse(localStorage.getItem('currentVideoObj')).id);
+            socket.emit('video', JSON.stringify({
+                userId: JSON.parse(localStorage.getItem('user')).id,
+                videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
+                watching: true
+            }));
 
             let watchCounter = function () {
                 if (player.isPlaying() && !buffering) {
-                    counter++;
-                    if (counter % 10 == 0) {
-                        console.log(counter + ' seconds');
+                    seconds++;
+                    if (seconds % 10 == 0) {
+                        socket.emit('video', JSON.stringify({
+                            userId: JSON.parse(localStorage.getItem('user')).id,
+                            videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
+                            watching: true
+                        }));
                     }
                 }
                 setTimeout(watchCounter, 1000);
@@ -77,12 +108,15 @@ $(document).ready(function () {
         });
 
         player.listenToOnce(player, Clappr.Events.PLAYER_ENDED, function () {
-            console.log('Player finished!');
+            socket.emit('video', JSON.stringify({
+                userId: JSON.parse(localStorage.getItem('user')).id,
+                videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
+                watching: false
+            }));
         });
 
         player.listenTo(player.core.getCurrentContainer(), Clappr.Events.CONTAINER_STATE_BUFFERING, function () {
             buffering = true;
-            console.log(buffering);
         });
     };
 

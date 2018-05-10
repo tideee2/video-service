@@ -243,8 +243,8 @@ body {
   margin-bottom: 10px;
 }
 .video-container button {
-  display: block;
-  width: 100px;
+  display: inline-block;
+  width: 70px;
   height: 30px;
 }
 .video {
