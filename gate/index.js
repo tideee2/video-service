@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-/* Set content directories for static file server */
+/* Set content directories for the static file server */
 // Page
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -23,6 +23,6 @@ app.get('/js/login.js', function (req, res) {
     res.sendFile(path.join(__dirname, '/js/login.js'));
 });
 
-app.listen("3000", () => {
+app.listen("2999", () => {
     console.log("Server works!");
 });

@@ -1,6 +1,6 @@
 $(document).ready(function () {
     /* Connection to the store service */
-    var socket = io();
+    var socket = new io('http://localhost:3000');
 
     /* Fills the localeStorage in order to make tests without connected databases and so on. */
     var users = [

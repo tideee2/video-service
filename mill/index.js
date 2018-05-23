@@ -11,11 +11,12 @@ var jsonParser = bodyParser.json();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); 
 var connection = mysql.createConnection({
-   host     : 'localhost',
-   user     : 'root',
-   password : '',
-   database : 'video-service',
-   multipleStatements: true
+   host: '192.168.99.100',
+	port: '3306',
+    user: 'root',
+    password: 'root',
+    database: 'video-service',
+    multipleStatements: true
  });
  const maxDuration = 40*60;
  const relativeDuration = 0.15;
@@ -33,8 +34,7 @@ var connection = mysql.createConnection({
  const k = 1;
  const servicePrice = 0.3;
  const userMoney = 10;
-// var db = require('./db.js');
-// console.log(db.views);
+
 var
     w = '';
 let qq = function(x){
@@ -240,4 +240,4 @@ app.get('/',function(request, response){
 })
 
 
-app.listen(3000);
+app.listen(3002);
