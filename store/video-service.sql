@@ -6,7 +6,7 @@
 -- Время создания: Май 20 2018 г., 20:23
 -- Версия сервера: 10.1.25-MariaDB
 -- Версия PHP: 7.1.7
-CREATE DATABASE `video-service`;
+CREATE DATABASE `video_service`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
