@@ -54,9 +54,27 @@ $(document).ready(function () {
     /* Player */
     let buffering = false;
     let seconds = 0;
+    let timer;
     let currentPlayer = new Clappr.Player({source: videos[0].source}).attachTo(document.getElementById('current_video'));
     localStorage.setItem('currentVideoObj', JSON.stringify(videos[0]));
     addPlayerListeners(currentPlayer);
+
+    /* Sets a timer in order to calculate the amount of displayed seconds */
+    function startTimer(player) {
+        timer = window.setTimeout(function () {
+            if (player.isPlaying() && !buffering) {
+                seconds++;
+                if (seconds % 10 == 0) {
+                    socket.emit('video', JSON.stringify({
+                        userId: JSON.parse(localStorage.getItem('user')).id,
+                        videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
+                        watching: true
+                    }));
+                }
+            }
+            startTimer(player);
+        }, 1000);
+    };
 
     /* Changes the source (video) of the player to the next */
     $('.video').click(function () {
@@ -68,6 +86,7 @@ $(document).ready(function () {
             watching: false
         }));
         localStorage.setItem('currentVideoObj', JSON.stringify(nextVideo));
+        window.clearTimeout(timer);
         currentPlayer.load({source: nextVideo.source});
         addPlayerListeners(currentPlayer);
     });
@@ -86,21 +105,7 @@ $(document).ready(function () {
                 videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
                 watching: true
             }));
-
-            let watchCounter = function () {
-                if (player.isPlaying() && !buffering) {
-                    seconds++;
-                    if (seconds % 10 == 0) {
-                        socket.emit('video', JSON.stringify({
-                            userId: JSON.parse(localStorage.getItem('user')).id,
-                            videoId: JSON.parse(localStorage.getItem('currentVideoObj')).id,
-                            watching: true
-                        }));
-                    }
-                }
-                setTimeout(watchCounter, 1000);
-            };
-            setTimeout(watchCounter, 1000);
+            startTimer(player);
         });
 
         player.listenTo(player, Clappr.Events.PLAYER_PLAY, function () {
