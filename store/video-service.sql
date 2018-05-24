@@ -186,7 +186,7 @@ CREATE TABLE `views` (
   `video_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `time_watch` int(11) NOT NULL,
-  `liked` int(11) NOT NULL
+  `liked` int(11) NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
