@@ -44,9 +44,9 @@ connection.connect(function (err) {
     if (err) throw err;
     console.log("Connection Ok!");
 }); 
-let getViews = function(res){
+var getViews = function(res){
     
-    let query = "SELECT videos.id,views.user_id,views.time_watch,views.liked,videos.name,videos.duration,videos.owner_id " +
+    var query = "SELECT videos.id,views.user_id,views.time_watch,views.liked,videos.name,videos.duration,videos.owner_id " +
     "FROM views INNER JOIN videos ON views.video_id = videos.id";
     responseText = {
         status: 'ok',
@@ -54,7 +54,7 @@ let getViews = function(res){
         rows:{}
     }
     
-    let result = connection.query(query,function(error, rows){
+    var result = connection.query(query,function(error, rows){
         if (error) {
             throw error 
             // console.log(error.code);
@@ -69,29 +69,29 @@ let getViews = function(res){
 
             // callback(response);
         }
-        let fff = {};
-        for (let i=0;i<rows.length;i++){
+        var fff = {};
+        for (var i=0;i<rows.length;i++){
             // console.log(rows[i].user_id);
-            let duration = (rows[i].duration >= maxDuration) ? maxDuration : rows[i].duration;
-            let x = Math.min(maxDuration, duration)/maxDuration * x_end;
+            var duration = (rows[i].duration >= maxDuration) ? maxDuration : rows[i].duration;
+            var x = Math.min(maxDuration, duration)/maxDuration * x_end;
             rows[i].x = x;
-            let y = Math.atan(Math.pow(x,p3) - Math.PI/2)+1;
+            var y = Math.atan(Math.pow(x,p3) - Math.PI/2)+1;
             rows[i].y = y;
             rows[i].e = duration;
-            let watchDepth = rows[i].time_watch/rows[i].duration;
+            var watchDepth = rows[i].time_watch/rows[i].duration;
             rows[i].z = watchDepth;
-            let ratio = (Math.atan(Math.pow(Math.min(maxDuration,duration)/maxDuration*magicNumber1+magicNumber2,p5)-Math.PI/2)+shift-2)/magicNumber3*watchDepth*2*relativeDuration;
+            var ratio = (Math.atan(Math.pow(Math.min(maxDuration,duration)/maxDuration*magicNumber1+magicNumber2,p5)-Math.PI/2)+shift-2)/magicNumber3*watchDepth*2*relativeDuration;
             rows[i].ratio = ratio;
-            let durationWeight = y * ratio / y_end;
+            var durationWeight = y * ratio / y_end;
             rows[i].durationWeight = durationWeight;
-            let watchDepthWeight = (Math.atan(Math.pow(watchDepth*x_end,p3)-Math.PI/2)+shift)*(Math.min(maxDuration,duration)/maxDuration)*(1-ratio)/y_end; 
+            var watchDepthWeight = (Math.atan(Math.pow(watchDepth*x_end,p3)-Math.PI/2)+shift)*(Math.min(maxDuration,duration)/maxDuration)*(1-ratio)/y_end; 
             rows[i].s = watchDepthWeight;
-            let contentRaiting = (durationWeight + watchDepthWeight) * k;
+            var contentRaiting = (durationWeight + watchDepthWeight) * k;
             rows[i].rating = contentRaiting;                
         }
-        let videoCost = {};
-        let users = [];
-        for(let i=0; i < rows.length; i++){
+        var videoCost = {};
+        var users = [];
+        for(var i=0; i < rows.length; i++){
          if   (videoCost.hasOwnProperty(rows[i].user_id)) {
             videoCost[rows[i].user_id].totalRating +=rows[i].rating; 
          } 
@@ -102,9 +102,9 @@ let getViews = function(res){
          }
             
         }
-        let videoMoney = {};
-        let queryTransactionToVideo = 'INSERT INTO transactionstovideo (`id-from`,`id-to`,`money`,`timestamp`) VALUES ';
-        for(let i=0; i < rows.length; i++){
+        var videoMoney = {};
+        var queryTransactionToVideo = 'INSERT INTO transactionstovideo (`id-from`,`id-to`,`money`,`timestamp`) VALUES ';
+        for(var i=0; i < rows.length; i++){
             rows[i].videoPercent = rows[i].rating / videoCost[rows[i].user_id].totalRating;
             rows[i].MoneyFromUser = rows[i].videoPercent * userMoney * (1-servicePrice);
             if (videoMoney.hasOwnProperty(rows[i].id)){
@@ -113,7 +113,7 @@ let getViews = function(res){
             else{
                 videoMoney[rows[i].id] = rows[i].MoneyFromUser;
             }
-            let timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
             queryTransactionToVideo += '('+rows[i].user_id +','+rows[i].id+','+rows[i].MoneyFromUser.toFixed(2)+',"'+timestamp+'"),'
             console.log(videoMoney);
         }
@@ -135,8 +135,8 @@ let getViews = function(res){
 }
 
 function createVideoPrice(videoMoney){
-    let timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    let query = 'TRUNCATE TABLE videoprice; '
+    var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    var query = 'TRUNCATE TABLE videoprice; '
     query += "INSERT INTO videoprice  (video_id,price,time) VALUES";
     for (var prop in videoMoney) {
         query +=  " ("+prop+","+videoMoney[prop].toFixed(2)+",'"+timestamp+"'),";
@@ -151,9 +151,9 @@ function createVideoPrice(videoMoney){
 }
 
 function changeSubscriberBudget(users){
-    let query1 ='';
+    var query1 ='';
     query1 = "UPDATE `users` SET `budget`=(`budget`-10) WHERE id in ("
-    for (let i=0; i<users.length;i++){
+    for (var i=0; i<users.length;i++){
         query1+=users[i]+',';
     }
     
@@ -168,7 +168,7 @@ function changeSubscriberBudget(users){
 }
 
 function changeInvestorBudget(video_id){
-    let query = 'SELECT user_id, percent, video_id FROM invest WHERE video_id in (';
+    var query = 'SELECT user_id, percent, video_id FROM invest WHERE video_id in (';
     for (var prop in video_id) {
         query += prop + ',';
     }
@@ -176,13 +176,13 @@ function changeInvestorBudget(video_id){
     console.log(query);
     connection.query(query,function(error, rows){
         if (error) throw error;
-        let query2 ='';
-        let query3 ='INSERT INTO transactionstouser (`id-from`,`id-to`,`money`,`timestamp`) VALUES ';
-        for (let i=0; i<rows.length;i++){
+        var query2 ='';
+        var query3 ='INSERT INTO transactionstouser (`id-from`,`id-to`,`money`,`timestamp`) VALUES ';
+        for (var i=0; i<rows.length;i++){
             rows[i].moneToInvest = video_id[rows[i].video_id] * rows[i].percent/100;
             query2 += 'UPDATE `users` SET budget=budget+' +rows[i].moneToInvest.toFixed(2) + ' WHERE id='+
             rows[i].user_id + '; ';
-            let timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            var timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
             query3 += '(' +rows[i].video_id+','+rows[i].user_id+','+rows[i].moneToInvest.toFixed(2)+',"'+timestamp+'"),'
         }
         connection.query(query2,function(error2, rows2){
@@ -205,7 +205,7 @@ app.post('/moneyToVideo/',function(request, response){
 })
 
 app.post('/setViews', function(request, response){
-    let query = 'TRUNCATE TABLE `views`; ';
+    var query = 'TRUNCATE TABLE `views`; ';
     query += 'INSERT INTO `views` (`id`, `video_id`, `user_id`, `time_watch`, `liked`) VALUES'+
     '(1, 1, 1, 3600, 0),(2, 1, 6, 1000, 0),(3, 1, 7, 1800, 0),(4, 2, 1, 400, 0),(5, 4, 1, 300, 0);'
     connection.query(query,function(error, rows){
@@ -215,7 +215,7 @@ app.post('/setViews', function(request, response){
 })
 
 app.post('/changeAllBudget',function(request, response){
-    let query = 'UPDATE users SET budget=100';
+    var query = 'UPDATE users SET budget=100';
     connection.query(query,function(error, rows){
         if (error) throw error.code;
         console.log(query);
@@ -227,7 +227,7 @@ app.post('/reset', function(request, response){
     fs.readFile("video-service2.sql", "utf8",function (err, data) {
         if (err) throw err;
         console.log(data.toString());
-        let query = data.toString();
+        var query = data.toString();
         connection.query(query,function(error, rows){
             if (error) throw error.code;
             //console.log(query);
