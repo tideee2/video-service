@@ -14,10 +14,10 @@ const hendlerConnection = require('./DB/hendlerConnection.js');//handler disconn
 
 var buffer = {};// storage of all users online in type {user: }
 
-
+/*
 app.get('/', function (req, res, next) {
     res.sendFile(path.join(__dirname + '/public/index.html'))
-});
+});*/
 /*In this method catching json request type {user: X, video: X, onTime 1(0)}.
 If user with this socket absent in buffer add in buffer and assigns time=10
  else watching onTime = 0 or user changing video, in both cases send changes in database
