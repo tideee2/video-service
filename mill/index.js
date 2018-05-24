@@ -11,11 +11,11 @@ var jsonParser = bodyParser.json();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); 
 var connection = mysql.createConnection({
-   host: '192.168.99.100',
+   host: 'localhost',
 	port: '3306',
     user: 'root',
     password: 'root',
-    database: 'video-service',
+    database: 'video_service',
     multipleStatements: true
  });
  const maxDuration = 40*60;
