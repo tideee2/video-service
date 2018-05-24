@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var jsonParser = bodyParser.json();
-var mysql      = require('mysql');
+var mysql = require('mysql');
 var app = express();
 var fs = require("fs");
 
@@ -37,7 +37,7 @@ var connection = mysql.createConnection({
 
 var
     w = '';
-let qq = function(x){
+var qq = function(x){
     w = x;
 }
 connection.connect(function (err) {
