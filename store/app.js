@@ -26,13 +26,15 @@ io.on('connection', function (socket) {
 
     socket.on('video', function (msg) {
         var msg = JSON.parse(msg);
+		console.log(msg);
         if (socket.id in buffer) {
             if (msg.watching == false || buffer[socket.id].video != msg.videoId) {
                 if (buffer[socket.id].time != 0) {
                     var sql = "INSERT INTO views (user_id, video_id, time_watch) VALUES('" + buffer[socket.id].user + "', '" + buffer[socket.id].video + "', '" + buffer[socket.id].time + "' )";
-                    //console.log(sql);
+                    console.log(sql);
                     connection.query(sql, function (err, result) {
                         if (err) throw err;
+						console.log(result);
                     });
                     buffer[socket.id].time = 0;
                 }
