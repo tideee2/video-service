@@ -8,6 +8,7 @@ var app = express();
 var server = http.Server(app);
 var socketio = require('socket.io');
 var io = socketio(server);
+const secOnJson = 10;
 const connection = require('./DB/connection.js');//connect to database
 const hendlerConnection = require('./DB/hendlerConnection.js');//handler disconnect of database
 
@@ -45,13 +46,13 @@ io.on('connection', function (socket) {
                     buffer[socket.id].time = 0;
 
                 }
-                buffer[socket.id].time += 10;
+                buffer[socket.id].time += secOnJson;
             }
         } else {//creating new user in buffer
             buffer[socket.id] = {};
             buffer[socket.id].user = msg.userId;
             buffer[socket.id].video = msg.videoId;
-            buffer[socket.id].time = 10;
+            buffer[socket.id].time = secOnJson;
         }
     });
 
